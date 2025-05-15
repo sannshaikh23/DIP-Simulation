@@ -3,7 +3,7 @@ import cv2
 import os
 import numpy as np
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(_file_))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
@@ -71,7 +71,7 @@ def static_files(filename):
     return send_from_directory(OUTPUT_FOLDER, filename)
 
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     os.makedirs(OUTPUT_FOLDER, exist_ok=True)
     port = int(os.environ.get('PORT', 5000))      # Get port from environment (Render sets this)
