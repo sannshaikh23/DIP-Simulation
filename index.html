@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Operations</title>
+    <style>
+        body { font-family: Arial; margin: 40px; background-color: #def4a9;}
+        form{padding: 20px;border: 1px solid #ccc;background: #b4e6d6;margin-bottom: 40px;max-width: 600px;border-radius: 10px;}
+        input[type="file"]{margin-bottom: 15px;}
+        input[type="submit"]{padding: 10px 20px;font-size: 16px;cursor: pointer;background: #007bff;color: white;border:none;border-radius: 5px;}
+        #output{margin-top: 40px;}
+        h2,h4{color:#333}
+        .image-row{display: flex;flex-wrap: wrap;gap: 20px;}
+        .image-box{background: #c1f1e7;padding: 10px;border: 1px solid #0b0b0b;width:300px;text-align: center;}
+        .image-box img{width: 100%;border-radius: 6px;}
+
+    </style>
+</head>
+<body>
+    <h2>Upload Your Images</h2>
+    <form id="upload-form" enctype="multipart/form-data"method="post"action="/upload">
+        <input type="file" name="img1" required><br><br>
+        <input type="file" name="img2" required><br><br>
+        <input type="file" name="img_rotate" required><br><br>
+        <input type="file" name="img_translate" required><br><br>
+        <input type="submit" value="Click Here To Process">
+    </form>
+
+    
+    <div id="output" style="margin-top: 40px;">
+        <h2>Output Images</h2>
+        <div class="image-row">
+            <div class="image-box">
+            <h4>Image 1</h4>
+            <img src="/static/i1.png" onerror="this.style.display='none'"></div>
+            <div class="image-box">
+            <h4>Image 2</h4>
+            <img src="/static/i2.png" onerror="this.style.display='none'"></div>
+            <div class="image-box">
+            <h4>Added Image</h4>
+            <img src="/static/add.png" onerror="this.style.display='none'"></div>
+            <div class="image-box">
+            <h4>Subtracted Image</h4>
+            <img src="/static/sub.png" onerror="this.style.display='none'"></div>
+            <div class="image-box">
+            <h4>Rotated Image</h4>
+            <img src="/static/rotated_image.png" onerror="this.style.display='none'"></div>
+            <div class="image-box">
+            <h4>Translated Image</h4>
+            <img src="/static/translated_image.png" onerror="this.style.display='none'"></div>
+        
+        </div>
+    </div>
+
+
+<script>
+document.getElementById("uploadForm").onsubmit = async function(e) {
+    e.preventDefault();
+    const form = new FormData(this);
+    const response = await fetch("/upload", { method: "POST", body: form });
+    if (response.ok) {
+        setTimeout(() => location.reload(), 1000);
+    } else {
+        alert("Upload failed");
+    }
+};
+</script>
+</body>
+</html>
